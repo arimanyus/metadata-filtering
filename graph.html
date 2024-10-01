@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 500px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#97c2fc", "id": "the company \u0027s performance", "label": "the company \u0027s performance", "shape": "dot"}, {"color": "#97c2fc", "id": "to the plan", "label": "to the plan", "shape": "dot"}, {"color": "#97c2fc", "id": "Sales", "label": "Sales", "shape": "dot"}, {"color": "#97c2fc", "id": "the plan", "label": "the plan", "shape": "dot"}, {"color": "#97c2fc", "id": "the Analytical \u0026 Measuring Instruments ( AMI ) and Medical Systems ( MED )", "label": "the Analytical \u0026 Measuring Instruments ( AMI ) and Medical Systems ( MED )", "shape": "dot"}, {"color": "#97c2fc", "id": "In China", "label": "In China", "shape": "dot"}, {"color": "#97c2fc", "id": "", "label": "", "shape": "dot"}, {"color": "#97c2fc", "id": "some market deterioration", "label": "some market deterioration", "shape": "dot"}, {"color": "#97c2fc", "id": "anti - corruption \n measures by the government", "label": "anti - corruption \n measures by the government", "shape": "dot"}, {"color": "#97c2fc", "id": "In MED", "label": "In MED", "shape": "dot"}, {"color": "#97c2fc", "id": "delays in contract procedures", "label": "delays in contract procedures", "shape": "dot"}, {"color": "#97c2fc", "id": "the \n Turbo Molecular Pumps ( TMP ) in IM", "label": "the \n Turbo Molecular Pumps ( TMP ) in IM", "shape": "dot"}, {"color": "#97c2fc", "id": "On the other hand", "label": "On the other hand", "shape": "dot"}, {"color": "#97c2fc", "id": "for semiconductor manufacturing equipment , \n and", "label": "for semiconductor manufacturing equipment , \n and", "shape": "dot"}, {"color": "#97c2fc", "id": "the increase in industrial \n furnaces for automotive ceramic manufacturing", "label": "the increase in industrial \n furnaces for automotive ceramic manufacturing", "shape": "dot"}, {"color": "#97c2fc", "id": "to the strong performance of \n IM", "label": "to the strong performance of \n IM", "shape": "dot"}, {"color": "#97c2fc", "id": "production cuts", "label": "production cuts", "shape": "dot"}, {"color": "#97c2fc", "id": "In Q1", "label": "In Q1", "shape": "dot"}, {"color": "#97c2fc", "id": "factory revenue", "label": "factory revenue", "shape": "dot"}, {"color": "#97c2fc", "id": "production", "label": "production", "shape": "dot"}, {"color": "#97c2fc", "id": "increase from Q2", "label": "increase from Q2", "shape": "dot"}, {"color": "#97c2fc", "id": "we", "label": "we", "shape": "dot"}, {"color": "#97c2fc", "id": "By converting new \n orders and pending installations into sales", "label": "By converting new \n orders and pending installations into sales", "shape": "dot"}, {"color": "#97c2fc", "id": "the initial forecast", "label": "the initial forecast", "shape": "dot"}, {"color": "#97c2fc", "id": "the appreciation of the Japanese yen", "label": "the appreciation of the Japanese yen", "shape": "dot"}, {"color": "#97c2fc", "id": "your performance", "label": "your performance", "shape": "dot"}, {"color": "#97c2fc", "id": "it", "label": "it", "shape": "dot"}, {"color": "#97c2fc", "id": "a business risk", "label": "a business risk", "shape": "dot"}, {"color": "#97c2fc", "id": "The order backlog", "label": "The order backlog", "shape": "dot"}, {"color": "#97c2fc", "id": "from the end of the previous fiscal year , March 31 % , 2024", "label": "from the end of the previous fiscal year , March 31 % , 2024", "shape": "dot"}, {"color": "#97c2fc", "id": "orders", "label": "orders", "shape": "dot"}, {"color": "#97c2fc", "id": "in Japan , \n North America , and India", "label": "in Japan , \n North America , and India", "shape": "dot"}, {"color": "#97c2fc", "id": "that", "label": "that", "shape": "dot"}, {"color": "#97c2fc", "id": "customer needs centered on \n our North American R\u0026D center", "label": "customer needs centered on \n our North American R\u0026D center", "shape": "dot"}, {"color": "#97c2fc", "id": "about 1,600 projects", "label": "about 1,600 projects", "shape": "dot"}, {"color": "#97c2fc", "id": "As of the end of June", "label": "As of the end of June", "shape": "dot"}, {"color": "#97c2fc", "id": "with around 80 % of them", "label": "with around 80 % of them", "shape": "dot"}, {"color": "#97c2fc", "id": "in \n\n Q9", "label": "in \n\n Q9", "shape": "dot"}, {"color": "#97c2fc", "id": "AQ", "label": "AQ", "shape": "dot"}, {"color": "#97c2fc", "id": "AQ : \n\n academia", "label": "AQ : \n\n academia", "shape": "dot"}, {"color": "#97c2fc", "id": "Recovery", "label": "Recovery", "shape": "dot"}, {"color": "#97c2fc", "id": "time", "label": "time", "shape": "dot"}, {"color": "#97c2fc", "id": "In the clinical market", "label": "In the clinical market", "shape": "dot"}, {"color": "#97c2fc", "id": "We", "label": "We", "shape": "dot"}, {"color": "#97c2fc", "id": "a mid - single - digit percentage decline year - on - year for this fiscal year", "label": "a mid - single - digit percentage decline year - on - year for this fiscal year", "shape": "dot"}, {"color": "#97c2fc", "id": "this", "label": "this", "shape": "dot"}, {"color": "#97c2fc", "id": "from the initial forecast", "label": "from the initial forecast", "shape": "dot"}, {"color": "#97c2fc", "id": "a significant increase in staff", "label": "a significant increase in staff", "shape": "dot"}, {"color": "#97c2fc", "id": "efficiency", "label": "efficiency", "shape": "dot"}, {"color": "#97c2fc", "id": "in the business", "label": "in the business", "shape": "dot"}, {"color": "#97c2fc", "id": "by", "label": "by", "shape": "dot"}, {"color": "#97c2fc", "id": "by \n\n focusing and concentrating ,", "label": "by \n\n focusing and concentrating ,", "shape": "dot"}, {"color": "#97c2fc", "id": "On the production side", "label": "On the production side", "shape": "dot"}, {"color": "#97c2fc", "id": "to \n multi - skill our employees", "label": "to \n multi - skill our employees", "shape": "dot"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "the company \u0027s performance", "title": "compare", "to": "to the plan"}, {"arrows": "to", "from": "Sales", "title": "exceed", "to": "the plan"}, {"arrows": "to", "from": "the Analytical \u0026 Measuring Instruments ( AMI ) and Medical Systems ( MED )", "title": "face", "to": "In China"}, {"arrows": "to", "from": "", "title": "face", "to": "some market deterioration"}, {"arrows": "to", "from": "", "title": "cause", "to": "delays in contract procedures"}, {"arrows": "to", "from": "", "title": "increase", "to": "for semiconductor manufacturing equipment , \n and"}, {"arrows": "to", "from": "", "title": "affect", "to": "factory revenue"}, {"arrows": "to", "from": "", "title": "materialize", "to": "with around 80 % of them"}, {"arrows": "to", "from": "", "title": "materialize", "to": "in \n\n Q9"}, {"arrows": "to", "from": "", "title": "materialize", "to": "AQ"}, {"arrows": "to", "from": "", "title": "materialize", "to": "AQ : \n\n academia"}, {"arrows": "to", "from": "", "title": "promote", "to": "in the business"}, {"arrows": "to", "from": "", "title": "promote", "to": "by"}, {"arrows": "to", "from": "", "title": "promote", "to": "by \n\n focusing and concentrating ,"}, {"arrows": "to", "from": "", "title": "aim", "to": "to \n multi - skill our employees"}, {"arrows": "to", "from": "anti - corruption \n measures by the government", "title": "cause", "to": "In MED"}, {"arrows": "to", "from": "the \n Turbo Molecular Pumps ( TMP ) in IM", "title": "increase", "to": "On the other hand"}, {"arrows": "to", "from": "the increase in industrial \n furnaces for automotive ceramic manufacturing", "title": "contribute", "to": "to the strong performance of \n IM"}, {"arrows": "to", "from": "production cuts", "title": "affect", "to": "In Q1"}, {"arrows": "to", "from": "production", "title": "turn", "to": "increase from Q2"}, {"arrows": "to", "from": "we", "title": "believe", "to": "By converting new \n orders and pending installations into sales"}, {"arrows": "to", "from": "we", "title": "reiterate", "to": "the initial forecast"}, {"arrows": "to", "from": "we", "title": "aim", "to": "In the clinical market"}, {"arrows": "to", "from": "we", "title": "aim", "to": "On the production side"}, {"arrows": "to", "from": "the appreciation of the Japanese yen", "title": "affect", "to": "your performance"}, {"arrows": "to", "from": "it", "title": "pose", "to": "a business risk"}, {"arrows": "to", "from": "The order backlog", "title": "increase", "to": "from the end of the previous fiscal year , March 31 % , 2024"}, {"arrows": "to", "from": "orders", "title": "expand", "to": "in Japan , \n North America , and India"}, {"arrows": "to", "from": "that", "title": "meet", "to": "customer needs centered on \n our North American R\u0026D center"}, {"arrows": "to", "from": "about 1,600 projects", "title": "materialize", "to": "As of the end of June"}, {"arrows": "to", "from": "Recovery", "title": "take", "to": "time"}, {"arrows": "to", "from": "We", "title": "expect", "to": "a mid - single - digit percentage decline year - on - year for this fiscal year"}, {"arrows": "to", "from": "We", "title": "expect", "to": "a significant increase in staff"}, {"arrows": "to", "from": "We", "title": "promote", "to": "efficiency"}, {"arrows": "to", "from": "this", "title": "change", "to": "from the initial forecast"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

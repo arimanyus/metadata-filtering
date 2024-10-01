@@ -1,0 +1,12 @@
+# Ignore __pycache__ directories
+__pycache__/
+
+# Ignore lib directories
+lib/
+
+# Ignore neo4j directories
+neo4j/
+
+# Existing entries
+neo/neo4j/Lib/site-packages/torch/lib/torch_cpu.dll filter=lfs diff=lfs merge=lfs -text
+neo/neo4j/Lib/site-packages/torch/lib/dnnl.lib filter=lfs diff=lfs merge=lfs -text
